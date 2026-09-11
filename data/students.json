@@ -1,0 +1,644 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Ava Johnson",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 95,
+        "reading": 92,
+        "writing": 94,
+        "social studies": 90,
+        "science": 96,
+        "PE": 98,
+        "FACS": 91,
+        "UA": 93
+      },
+      "GPA": 3.75
+    },
+    {
+      "id": 2,
+      "name": "Liam Smith",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 87,
+        "reading": 89,
+        "writing": 85,
+        "social studies": 88,
+        "science": 90,
+        "PE": 94,
+        "FACS": 86,
+        "UA": 91
+      },
+      "GPA": 3.55
+    },
+    {
+      "id": 3,
+      "name": "Emma Williams",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 78,
+        "reading": 82,
+        "writing": 80,
+        "social studies": 76,
+        "science": 84,
+        "PE": 90,
+        "FACS": 85,
+        "UA": 81
+      },
+      "GPA": 3.28
+    },
+    {
+      "id": 4,
+      "name": "Noah Brown",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 91,
+        "reading": 88,
+        "writing": 93,
+        "social studies": 89,
+        "science": 92,
+        "PE": 87,
+        "FACS": 90,
+        "UA": 94
+      },
+      "GPA": 3.62
+    },
+    {
+      "id": 5,
+      "name": "Olivia Davis",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 84,
+        "reading": 86,
+        "writing": 88,
+        "social studies": 83,
+        "science": 85,
+        "PE": 91,
+        "FACS": 89,
+        "UA": 87
+      },
+      "GPA": 3.47
+    },
+    {
+      "id": 6,
+      "name": "Elijah Miller",
+      "homeroom": "Ms. Carter",
+      "grades": {
+        "math": 55,
+        "reading": 75,
+        "writing": 78,
+        "social studies": 74,
+        "science": 79,
+        "PE": 85,
+        "FACS": 76,
+        "UA": 80
+      },
+      "GPA": 3.01
+    },
+    {
+      "id": 7,
+      "name": "Sophia Wilson",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 97,
+        "reading": 95,
+        "writing": 96,
+        "social studies": 94,
+        "science": 98,
+        "PE": 100,
+        "FACS": 93,
+        "UA": 97
+      },
+      "GPA": 3.85
+    },
+    {
+      "id": 8,
+      "name": "James Moore",
+      "homeroom": "Mrs. Rodriguez",
+      "grades": {
+        "math": 81,
+        "reading": 79,
+        "writing": 83,
+        "social studies": 85,
+        "science": 80,
+        "PE": 88,
+        "FACS": 82,
+        "UA": 84
+      },
+      "GPA": 3.31
+    },
+    {
+      "id": 9,
+      "name": "Isabella Taylor",
+      "homeroom": "Ms. Anderson",
+      "grades": {
+        "math": 89,
+        "reading": 91,
+        "writing": 87,
+        "social studies": 90,
+        "science": 88,
+        "PE": 95,
+        "FACS": 92,
+        "UA": 86
+      },
+      "GPA": 3.59
+    },
+    {
+      "id": 10,
+      "name": "Benjamin Anderson",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 55,
+        "reading": 72,
+        "writing": 70,
+        "social studies": 58,
+        "science": 74,
+        "PE": 82,
+        "FACS": 71,
+        "UA": 69
+      },
+      "GPA": 2.76
+    },
+    {
+      "id": 11,
+      "name": "Mia Thomas",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 93,
+        "reading": 90,
+        "writing": 95,
+        "social studies": 92,
+        "science": 91,
+        "PE": 96,
+        "FACS": 94,
+        "UA": 89
+      },
+      "GPA": 3.7
+    },
+    {
+      "id": 12,
+      "name": "Lucas Jackson",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 58,
+        "reading": 81,
+        "writing": 79,
+        "social studies": 83,
+        "science": 75,
+        "PE": 89,
+        "FACS": 80,
+        "UA": 78
+      },
+      "GPA": 3.12
+    },
+    {
+      "id": 13,
+      "name": "Charlotte White",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 86,
+        "reading": 94,
+        "writing": 91,
+        "social studies": 88,
+        "science": 93,
+        "PE": 90,
+        "FACS": 87,
+        "UA": 92
+      },
+      "GPA": 3.61
+    },
+    {
+      "id": 14,
+      "name": "Henry Harris",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 82,
+        "reading": 85,
+        "writing": 84,
+        "social studies": 80,
+        "science": 86,
+        "PE": 93,
+        "FACS": 81,
+        "UA": 88
+      },
+      "GPA": 3.45
+    },
+    {
+      "id": 15,
+      "name": "Amelia Martin",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 96,
+        "reading": 98,
+        "writing": 95,
+        "social studies": 97,
+        "science": 94,
+        "PE": 99,
+        "FACS": 96,
+        "UA": 95
+      },
+      "GPA": 3.84
+    },
+    {
+      "id": 16,
+      "name": "Alexander Thompson",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 59,
+        "reading": 77,
+        "writing": 73,
+        "social studies": 79,
+        "science": 76,
+        "PE": 86,
+        "FACS": 78,
+        "UA": 75
+      },
+      "GPA": 3.02
+    },
+    {
+      "id": 17,
+      "name": "Harper Garcia",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 88,
+        "reading": 92,
+        "writing": 90,
+        "social studies": 86,
+        "science": 89,
+        "PE": 94,
+        "FACS": 91,
+        "UA": 87
+      },
+      "GPA": 3.59
+    },
+    {
+      "id": 18,
+      "name": "Michael Martinez",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 55,
+        "reading": 71,
+        "writing": 58,
+        "social studies": 73,
+        "science": 70,
+        "PE": 80,
+        "FACS": 75,
+        "UA": 72
+      },
+      "GPA": 2.77
+    },
+    {
+      "id": 19,
+      "name": "Evelyn Robinson",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 99,
+        "reading": 96,
+        "writing": 98,
+        "social studies": 95,
+        "science": 97,
+        "PE": 100,
+        "FACS": 94,
+        "UA": 96
+      },
+      "GPA": 3.88
+    },
+    {
+      "id": 20,
+      "name": "Daniel Clark",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 83,
+        "reading": 80,
+        "writing": 86,
+        "social studies": 84,
+        "science": 82,
+        "PE": 90,
+        "FACS": 85,
+        "UA": 81
+      },
+      "GPA": 3.31
+    },
+    {
+      "id": 21,
+      "name": "Abigail Rodriguez",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 92,
+        "reading": 89,
+        "writing": 94,
+        "social studies": 91,
+        "science": 90,
+        "PE": 97,
+        "FACS": 93,
+        "UA": 95
+      },
+      "GPA": 3.7
+    },
+    {
+      "id": 22,
+      "name": "Matthew Lewis",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 76,
+        "reading": 79,
+        "writing": 81,
+        "social studies": 77,
+        "science": 83,
+        "PE": 88,
+        "FACS": 59,
+        "UA": 80
+      },
+      "GPA": 3.09
+    },
+    {
+      "id": 23,
+      "name": "Emily Lee",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 85,
+        "reading": 87,
+        "writing": 89,
+        "social studies": 86,
+        "science": 84,
+        "PE": 92,
+        "FACS": 90,
+        "UA": 88
+      },
+      "GPA": 3.53
+    },
+    {
+      "id": 24,
+      "name": "Samuel Walker",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 54,
+        "reading": 68,
+        "writing": 71,
+        "social studies": 52,
+        "science": 69,
+        "PE": 79,
+        "FACS": 73,
+        "UA": 70
+      },
+      "GPA": 2.68
+    },
+    {
+      "id": 25,
+      "name": "Elizabeth Hall",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 94,
+        "reading": 93,
+        "writing": 96,
+        "social studies": 90,
+        "science": 95,
+        "PE": 98,
+        "FACS": 92,
+        "UA": 94
+      },
+      "GPA": 3.76
+    },
+    {
+      "id": 26,
+      "name": "Joseph Allen",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 80,
+        "reading": 84,
+        "writing": 78,
+        "social studies": 82,
+        "science": 85,
+        "PE": 91,
+        "FACS": 79,
+        "UA": 83
+      },
+      "GPA": 3.31
+    },
+    {
+      "id": 27,
+      "name": "Sofia Young",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 90,
+        "reading": 96,
+        "writing": 92,
+        "social studies": 94,
+        "science": 91,
+        "PE": 95,
+        "FACS": 97,
+        "UA": 93
+      },
+      "GPA": 3.79
+    },
+    {
+      "id": 28,
+      "name": "David Hernandez",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 57,
+        "reading": 76,
+        "writing": 75,
+        "social studies": 78,
+        "science": 72,
+        "PE": 84,
+        "FACS": 80,
+        "UA": 77
+      },
+      "GPA": 3.1
+    },
+    {
+      "id": 29,
+      "name": "Ella King",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 87,
+        "reading": 90,
+        "writing": 85,
+        "social studies": 89,
+        "science": 92,
+        "PE": 96,
+        "FACS": 88,
+        "UA": 91
+      },
+      "GPA": 3.59
+    },
+    {
+      "id": 30,
+      "name": "Jackson Wright",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 91,
+        "reading": 86,
+        "writing": 90,
+        "social studies": 88,
+        "science": 94,
+        "PE": 93,
+        "FACS": 89,
+        "UA": 92
+      },
+      "GPA": 3.61
+    },
+    {
+      "id": 31,
+      "name": "Scarlett Lopez",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 79,
+        "reading": 83,
+        "writing": 77,
+        "social studies": 81,
+        "science": 85,
+        "PE": 90,
+        "FACS": 82,
+        "UA": 80
+      },
+      "GPA": 3.29
+    },
+    {
+      "id": 32,
+      "name": "Sebastian Hill",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 52,
+        "reading": 70,
+        "writing": 65,
+        "social studies": 55,
+        "science": 68,
+        "PE": 81,
+        "FACS": 74,
+        "UA": 69
+      },
+      "GPA": 2.67
+    },
+    {
+      "id": 33,
+      "name": "Grace Scott",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 98,
+        "reading": 97,
+        "writing": 99,
+        "social studies": 96,
+        "science": 98,
+        "PE": 100,
+        "FACS": 95,
+        "UA": 97
+      },
+      "GPA": 3.9
+    },
+    {
+      "id": 34,
+      "name": "Owen Green",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 84,
+        "reading": 81,
+        "writing": 86,
+        "social studies": 83,
+        "science": 87,
+        "PE": 89,
+        "FACS": 85,
+        "UA": 82
+      },
+      "GPA": 3.34
+    },
+    {
+      "id": 35,
+      "name": "Chloe Adams",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 93,
+        "reading": 91,
+        "writing": 89,
+        "social studies": 95,
+        "science": 94,
+        "PE": 97,
+        "FACS": 92,
+        "UA": 90
+      },
+      "GPA": 3.71
+    },
+    {
+      "id": 36,
+      "name": "Wyatt Baker",
+      "homeroom": "Mrs. Carter",
+      "grades": {
+        "math": 71,
+        "reading": 74,
+        "writing": 58,
+        "social studies": 73,
+        "science": 80,
+        "PE": 87,
+        "FACS": 76,
+        "UA": 79
+      },
+      "GPA": 3.09
+    },
+    {
+      "id": 37,
+      "name": "Lily Nelson",
+      "homeroom": "Mr. Thompson",
+      "grades": {
+        "math": 86,
+        "reading": 88,
+        "writing": 91,
+        "social studies": 85,
+        "science": 89,
+        "PE": 94,
+        "FACS": 90,
+        "UA": 87
+      },
+      "GPA": 3.5
+    },
+    {
+      "id": 38,
+      "name": "John Carter",
+      "homeroom": "Ms. Rodriguez",
+      "grades": {
+        "math": 89,
+        "reading": 93,
+        "writing": 88,
+        "social studies": 91,
+        "science": 90,
+        "PE": 96,
+        "FACS": 87,
+        "UA": 92
+      },
+      "GPA": 3.63
+    },
+    {
+      "id": 39,
+      "name": "Riley Mitchell",
+      "homeroom": "Mrs. Anderson",
+      "grades": {
+        "math": 75,
+        "reading": 80,
+        "writing": 74,
+        "social studies": 78,
+        "science": 81,
+        "PE": 86,
+        "FACS": 79,
+        "UA": 76
+      },
+      "GPA": 3.15
+    },
+    {
+      "id": 40,
+      "name": "Leo Perez",
+      "homeroom": "Mr. Bennett",
+      "grades": {
+        "math": 92,
+        "reading": 90,
+        "writing": 94,
+        "social studies": 87,
+        "science": 93,
+        "PE": 95,
+        "FACS": 91,
+        "UA": 89
+      },
+      "GPA": 3.65
+    }
+  ]
+}
