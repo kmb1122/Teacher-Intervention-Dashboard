@@ -1,69 +1,275 @@
-import Image from "next/image";
+"use client";
+
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useMemo, useState } from "react";
+import type { Student } from "@/types/students";
+import SortableHeader from "./components/sortableHeader";
+
+const subjects = [
+  { key: "math", label: "Math" },
+  { key: "reading", label: "Reading" },
+  { key: "writing", label: "Writing" },
+  { key: "social studies", label: "Social Studies" },
+  { key: "science", label: "Science" },
+  { key: "PE", label: "PE" },
+  { key: "FACS", label: "FACS" },
+  { key: "UA", label: "UA" },
+] as const;
+
+type SortOrder = "ascending" | "descending";
+type SubjectKey = (typeof subjects)[number]["key"];
 
 export default function Home() {
+  const [students, setStudents] = useState<Student[]>([]);
+  const [search, setSearch] = useState("");
+  const [interventionSubject, setInterventionSubject] = useState<
+    SubjectKey | "all"
+  >("all");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("ascending");
+  const [sortKey, setSortKey] = useState<keyof Student | null>("id");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadStudents() {
+      try {
+        const response = await fetch("/api/students");
+        if (!response.ok) throw new Error("Unable to load students");
+        const data: { students: Student[] } = await response.json();
+        setStudents(data.students);
+      } catch {
+        setError("Unable to load student data. Please refresh and try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    void loadStudents();
+  }, []);
+
+  const visibleStudents = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+
+    return students
+      .filter((student) =>
+        student.name.toLowerCase().includes(normalizedSearch),
+      )
+      .filter((student) =>
+        interventionSubject === "all"
+          ? true
+          : student.grades[interventionSubject] <= 65,
+      )
+      .sort((a, b) => {
+        const first = a[sortKey!];
+        const second = b[sortKey!];
+
+        const valueA = typeof first === "string" ? first.toLowerCase() : first;
+        const valueB =
+          typeof second === "string" ? second.toLowerCase() : second;
+
+        if (sortOrder === "ascending") {
+          return valueA > valueB ? 1 : -1;
+        }
+        return valueA < valueB ? 1 : -1;
+      });
+  }, [students, search, interventionSubject, sortKey, sortOrder]);
+
+  const hasSearchResults = students.some((student) =>
+    student.name.toLowerCase().includes(search.trim().toLowerCase()),
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            Student Intervention Dashboard
+          </h2>
+          <p className="mt-3 max-w-2xl text-slate-500">
+            Review grades, find students quickly, and focus support where it is
+            needed most.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-[1fr_auto] sm:p-5">
+          <label className="relative block">
+            <span className="sr-only">Search by student name</span>
+            <input
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search by student's name"
+              className="h-12 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:ring-4 focus:ring-teal-100"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </label>
+
+          <label className="flex h-12 items-center gap-3 rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm focus-within:border-teal-600 focus-within:ring-4 focus-within:ring-teal-100">
+            <span className="whitespace-nowrap font-medium text-slate-600">
+              Needs intervention in
+            </span>
+            <select
+              value={interventionSubject}
+              onChange={(event) =>
+                setInterventionSubject(event.target.value as SubjectKey | "all")
+              }
+              className="min-w-28 bg-transparent font-semibold text-slate-900 outline-none"
+            >
+              <option value="all">All classes</option>
+              {subjects.map((subject) => (
+                <option key={subject.key} value={subject.key}>
+                  {subject.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
-      </main>
-    </div>
+
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[1100px] border-collapse text-left text-sm">
+              <thead className="bg-slate-900 text-xs uppercase tracking-wider text-slate-300">
+                <tr>
+                  <SortableHeader
+                    label="ID"
+                    columnKey="id"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                    onSort={(key, order) => {
+                      setSortKey(key);
+                      setSortOrder(order);
+                    }}
+                  />
+
+                  <SortableHeader
+                    label="Name"
+                    columnKey="name"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                    onSort={(key, order) => {
+                      setSortKey(key);
+                      setSortOrder(order);
+                    }}
+                  />
+
+                  <SortableHeader
+                    label="Homeroom"
+                    columnKey="homeroom"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                    onSort={(key, order) => {
+                      setSortKey(key);
+                      setSortOrder(order);
+                    }}
+                  />
+
+                  {subjects.map((subject) => (
+                    <SortableHeader
+                      key={subject.key}
+                      label={subject.label}
+                      columnKey={subject.key}
+                      sortKey={sortKey}
+                      sortOrder={sortOrder}
+                      onSort={(key, order) => {
+                        setSortKey(key);
+                        setSortOrder(order);
+                      }}
+                    />
+                  ))}
+
+                  <SortableHeader
+                    label="GPA"
+                    columnKey="GPA"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                    onSort={(key, order) => {
+                      setSortKey(key);
+                      setSortOrder(order);
+                    }}
+                  />
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={12} className="px-5 py-16 text-center">
+                      <FontAwesomeIcon
+                        icon={faSpinner}
+                        spin
+                        className="mr-2 text-teal-600"
+                      />
+                      <span className="text-slate-500">
+                        Loading students...
+                      </span>
+                    </td>
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td
+                      colSpan={12}
+                      className="px-5 py-16 text-center text-red-600"
+                    >
+                      {error}
+                    </td>
+                  </tr>
+                ) : visibleStudents.length === 0 ? (
+                  <tr>
+                    <td colSpan={12} className="px-5 py-16 text-center">
+                      <p className="font-semibold text-slate-800">
+                        {interventionSubject !== "all" && hasSearchResults
+                          ? "No students need intervention for this class."
+                          : "No students found."}
+                      </p>
+                      <p className="mt-1 text-sm text-slate-500">
+                        Try changing the class filter or search term.
+                      </p>
+                    </td>
+                  </tr>
+                ) : (
+                  visibleStudents.map((student) => (
+                    <tr
+                      key={student.id}
+                      className="transition hover:bg-teal-50/50"
+                    >
+                      <td className="px-5 py-4 font-semibold text-slate-700">
+                        #{student.id}
+                      </td>
+                      <td className="whitespace-nowrap px-5 py-4 font-semibold text-slate-900">
+                        {student.name}
+                      </td>
+                      <td className="whitespace-nowrap px-5 py-4 text-slate-500">
+                        {student.homeroom}
+                      </td>
+                      {subjects.map((subject) => {
+                        const grade = student.grades[subject.key];
+                        return (
+                          <td key={subject.key} className="px-5 py-4">
+                            <span
+                              className={`relative inline-flex min-w-12 justify-center rounded-lg px-2.5 py-1.5 font-semibold ${grade <= 65 ? "bg-red-50 text-red-700" : "bg-slate-100 text-slate-700"}`}
+                            >
+                              {grade}%
+                              {grade <= 65 && (
+                                <span
+                                  aria-label="Needs intervention"
+                                  className="absolute -right-1 -top-1 h-3 w-3 rotate-45 bg-red-500"
+                                />
+                              )}
+                            </span>
+                          </td>
+                        );
+                      })}
+                      <td className="px-5 py-4 font-bold text-teal-700">
+                        {student.GPA.toFixed(2)}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
