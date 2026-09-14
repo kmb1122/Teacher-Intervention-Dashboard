@@ -3,8 +3,10 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useMemo, useState } from "react";
-import type { Student } from "@/types/students";
-import SortableHeader from "./components/sortableHeader";
+import type { Student, StudentGrades } from "@/types/students";
+import SortableHeader, {
+  type SortableColumn,
+} from "./components/sortableHeader";
 
 const subjects = [
   { key: "math", label: "Math" },
@@ -20,6 +22,19 @@ const subjects = [
 type SortOrder = "ascending" | "descending";
 type SubjectKey = (typeof subjects)[number]["key"];
 
+function getSortValue(
+  student: Student,
+  sortKey: SortableColumn | null,
+): string | number {
+  if (!sortKey) return 0;
+  if (sortKey in student.grades) {
+    return student.grades[sortKey as keyof StudentGrades];
+  }
+
+  const value = student[sortKey as keyof Student];
+  return typeof value === "string" || typeof value === "number" ? value : 0;
+}
+
 export default function Home() {
   const [students, setStudents] = useState<Student[]>([]);
   const [search, setSearch] = useState("");
@@ -27,9 +42,10 @@ export default function Home() {
     SubjectKey | "all"
   >("all");
   const [sortOrder, setSortOrder] = useState<SortOrder>("ascending");
-  const [sortKey, setSortKey] = useState<keyof Student | null>("id");
+  const [sortKey, setSortKey] = useState<SortableColumn | null>("id");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAllStudents, setShowAllStudents] = useState(false);
 
   useEffect(() => {
     async function loadStudents() {
@@ -55,14 +71,18 @@ export default function Home() {
       .filter((student) =>
         student.name.toLowerCase().includes(normalizedSearch),
       )
-      .filter((student) =>
-        interventionSubject === "all"
-          ? true
-          : student.grades[interventionSubject] <= 65,
-      )
+      .filter((student) => {
+        if (showAllStudents) return true;
+
+        if (interventionSubject === "all") {
+          return Object.values(student.grades).some((grade) => grade <= 65);
+        }
+
+        return student.grades[interventionSubject] <= 65;
+      })
       .sort((a, b) => {
-        const first = a[sortKey!];
-        const second = b[sortKey!];
+        const first = getSortValue(a, sortKey);
+        const second = getSortValue(b, sortKey);
 
         const valueA = typeof first === "string" ? first.toLowerCase() : first;
         const valueB =
@@ -73,7 +93,14 @@ export default function Home() {
         }
         return valueA < valueB ? 1 : -1;
       });
-  }, [students, search, interventionSubject, sortKey, sortOrder]);
+  }, [
+    students,
+    search,
+    interventionSubject,
+    showAllStudents,
+    sortKey,
+    sortOrder,
+  ]);
 
   const hasSearchResults = students.some((student) =>
     student.name.toLowerCase().includes(search.trim().toLowerCase()),
@@ -105,16 +132,19 @@ export default function Home() {
             />
           </label>
 
-          <label className="flex h-12 items-center gap-3 rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm focus-within:border-teal-600 focus-within:ring-4 focus-within:ring-teal-100">
+          <label className="flex w-fit m-auto h-12 items-center gap-3 rounded-xl border border-slate-300 bg-slate-50 px-4 text-sm focus-within:border-teal-600 focus-within:ring-4 focus-within:ring-teal-100 sm:w-full">
             <span className="whitespace-nowrap font-medium text-slate-600">
               Needs intervention in
             </span>
             <select
               value={interventionSubject}
-              onChange={(event) =>
-                setInterventionSubject(event.target.value as SubjectKey | "all")
-              }
-              className="min-w-28 bg-transparent font-semibold text-slate-900 outline-none"
+              onChange={(event) => {
+                setInterventionSubject(
+                  event.target.value as SubjectKey | "all",
+                );
+                setShowAllStudents(false);
+              }}
+              className="min-w-28 bg-transparent cursor-pointer font-semibold text-slate-900 outline-none"
             >
               <option value="all">All classes</option>
               {subjects.map((subject) => (
@@ -123,6 +153,16 @@ export default function Home() {
                 </option>
               ))}
             </select>
+          </label>
+
+          <label className="flex w-fit m-auto h-12 items-center gap-3 rounded-xl border border-slate-300 cursor-pointer font-semibold bg-slate-50 px-4 text-sm focus-within:border-teal-600 focus-within:ring-4 focus-within:ring-teal-100 sm:m-0">
+            <button
+              type="button"
+              onClick={() => setShowAllStudents((current) => !current)}
+              className="cursor-pointer"
+            >
+              Show All Students
+            </button>
           </label>
         </div>
 
@@ -193,15 +233,17 @@ export default function Home() {
               <tbody className="divide-y divide-slate-100">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={12} className="px-5 py-16 text-center">
-                      <FontAwesomeIcon
-                        icon={faSpinner}
-                        spin
-                        className="mr-2 text-teal-600"
-                      />
-                      <span className="text-slate-500">
-                        Loading students...
-                      </span>
+                    <td colSpan={12} className="px-5 py-16">
+                      <div className="flex flex-col items-center justify-center w-full gap-4 text-center">
+                        <FontAwesomeIcon
+                          icon={faSpinner}
+                          className="text-slate-800 h-6 w-6 block aspect-square animate-spin"
+                        />
+
+                        <span className="text-slate-500 text-lg">
+                          Loading students...
+                        </span>
+                      </div>
                     </td>
                   </tr>
                 ) : error ? (
