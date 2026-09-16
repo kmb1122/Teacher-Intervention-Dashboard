@@ -20,7 +20,11 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  },
+  "typeAcquisition": {
+    "include": ["@testing-library/jest-dom"]
   },
   "include": [
     "next-env.d.ts",
