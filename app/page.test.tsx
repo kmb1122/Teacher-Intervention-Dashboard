@@ -1,4 +1,5 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Home from "./page";
 import { it, expect, beforeEach, describe, vi } from "vitest";
 
@@ -11,6 +12,7 @@ describe("Home page", () => {
     {
       id: 1,
       name: "Alice",
+      homeroom: "Test Homeroom",
       grades: {
         math: 90,
         reading: 70,
@@ -21,10 +23,12 @@ describe("Home page", () => {
         FACS: 95,
         UA: 80,
       },
+      GPA: 3.5,
     },
     {
       id: 2,
       name: "Bob",
+      homeroom: "Test Homroom",
       grades: {
         math: 50,
         reading: 55,
@@ -35,6 +39,23 @@ describe("Home page", () => {
         FACS: 75,
         UA: 60,
       },
+      GPA: 2.1,
+    },
+    {
+      id: 3,
+      name: "Claud",
+      homeroom: "Test Homroom",
+      grades: {
+        math: 65,
+        reading: 75,
+        writing: 70,
+        "social studies": 85,
+        science: 90,
+        PE: 92,
+        FACS: 75,
+        UA: 68,
+      },
+      GPA: 3.1,
     },
   ];
 
@@ -73,7 +94,7 @@ describe("Home page", () => {
     render(<Home />);
 
     expect(
-      await screen.getByText(
+      await screen.findByText(
         "Unable to load student data. Please refresh and try again.",
       ),
     ).toBeInTheDocument();
@@ -84,27 +105,48 @@ describe("Home page", () => {
   // FILTER: search filter
   it("filters students by student's name", async () => {
     mockFetchSuccess();
+
     render(<Home />);
 
-    await waitFor(() => screen.getByText("Alice"));
+    const searchInput = screen.getByPlaceholderText("Search by student's name");
 
-    const searchInput = screen.getByPlaceholderText("Search students");
-    searchInput.focus();
-    fireEvent.change(searchInput, { target: { value: "alice" } });
-    searchInput.dispatchEvent(
-      new InputEvent("input", { bubbles: true, data: "alice" }),
-    );
+    await userEvent.type(searchInput, "alice");
 
-    expect(screen.getByText("Alice")).toBeInTheDocument();
-    expect(screen.queryByText("Bob")).toBeNull();
+    expect(await screen.findByText("Alice")).toBeInTheDocument();
+    expect(screen.queryByText("Bob")).not.toBeInTheDocument();
+    expect(screen.queryByText("Claud")).not.toBeInTheDocument();
   });
 
-  // INTERVENTION LOGIC
-  it("shows only students needing intervention when showAllStudents=false", async () => {
+  // INTERVENTION all
+  it("shows students with an intervention in any class", async () => {
+    mockFetchSuccess();
+
+    render(<Home />);
+
+    const subjectSelect = screen.getByRole("combobox", {
+      name: /needs intervention in/i,
+    });
+
+    await userEvent.selectOptions(subjectSelect, "all");
+
+    expect(await screen.findByText("Bob")).toBeInTheDocument();
+    expect(screen.getByText("Claud")).toBeInTheDocument();
+    expect(screen.queryByText("Alice")).not.toBeInTheDocument();
+  });
+
+  // INTERVENTION Subject Specefic
+  it("shows only students needing intervention in a specific class", async () => {
     mockFetchSuccess();
     render(<Home />);
 
-    expect(await screen.getByText("Bob")).toBeInTheDocument();
+    const subjectSelect = screen.getByRole("combobox", {
+      name: /needs intervention in/i,
+    });
+
+    await userEvent.selectOptions(subjectSelect, "writing");
+
+    expect(await screen.findByText("Bob")).toBeInTheDocument();
+    expect(screen.queryByText("Claud")).toBeNull();
     expect(screen.queryByText("Alice")).toBeNull();
   });
 
@@ -113,14 +155,13 @@ describe("Home page", () => {
     mockFetchSuccess();
     render(<Home />);
 
-    await waitFor(() => screen.getByText("Alice"));
+    await waitFor(() => screen.getByText("Bob"));
 
     const rows = screen.getAllByRole("row");
     const names = rows.map((r) => r.textContent);
 
-    // Alice should appear before Bob
-    expect(names[1]).toContain("Alice");
-    expect(names[0]).toContain("Bob");
+    expect(names[1]).toContain("Bob");
+    expect(names[2]).toContain("Claud");
   });
 
   // EMPTY STATE
@@ -128,15 +169,14 @@ describe("Home page", () => {
     mockFetchSuccess();
     render(<Home />);
 
-    await waitFor(() => screen.getByText("Alice"));
-
-    const searchInput = screen.getByPlaceholderText("Search students");
+    const searchInput = screen.getByPlaceholderText("Search by student's name");
     searchInput.focus();
     fireEvent.change(searchInput, { target: { value: "no results found" } });
     searchInput.dispatchEvent(
       new InputEvent("input", { bubbles: true, data: "zzzz" }),
     );
 
-    expect(screen.getByText("No results found")).toBeInTheDocument();
+    const emptyMessage = await screen.findByText(/no students found/i);
+    expect(emptyMessage).toBeInTheDocument();
   });
 });

@@ -67,32 +67,37 @@ export default function Home() {
   const visibleStudents = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
 
-    return students
-      .filter((student) =>
-        student.name.toLowerCase().includes(normalizedSearch),
-      )
-      .filter((student) => {
-        if (showAllStudents) return true;
+    const searchFiltered = students.filter((student) =>
+      student.name.toLowerCase().includes(normalizedSearch),
+    );
 
-        if (interventionSubject === "all") {
-          return Object.values(student.grades).some((grade) => grade <= 65);
-        }
+    const interventionFiltered =
+      normalizedSearch.length > 0
+        ? searchFiltered
+        : students.filter((student) => {
+            if (showAllStudents) return true;
 
-        return student.grades[interventionSubject] <= 65;
-      })
-      .sort((a, b) => {
-        const first = getSortValue(a, sortKey);
-        const second = getSortValue(b, sortKey);
+            if (interventionSubject === "all") {
+              return Object.values(student.grades).some((grade) => grade <= 65);
+            }
 
-        const valueA = typeof first === "string" ? first.toLowerCase() : first;
-        const valueB =
-          typeof second === "string" ? second.toLowerCase() : second;
+            return student.grades[interventionSubject] <= 65;
+          });
 
-        if (sortOrder === "ascending") {
-          return valueA > valueB ? 1 : -1;
-        }
-        return valueA < valueB ? 1 : -1;
-      });
+    const sorted = interventionFiltered.sort((a, b) => {
+      const first = getSortValue(a, sortKey);
+      const second = getSortValue(b, sortKey);
+
+      const valueA = typeof first === "string" ? first.toLowerCase() : first;
+      const valueB = typeof second === "string" ? second.toLowerCase() : second;
+
+      if (sortOrder === "ascending") {
+        return valueA > valueB ? 1 : -1;
+      }
+      return valueA < valueB ? 1 : -1;
+    });
+
+    return sorted;
   }, [
     students,
     search,
