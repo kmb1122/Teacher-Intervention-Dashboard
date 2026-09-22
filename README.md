@@ -2,7 +2,7 @@
 
 # Teacher Intervention Board
 
-A dashboard that flags students needing intervention from their assessment data.
+A dashboard that flags students needing intervention based on their assessment data.
 
 ## Live Demo
 
@@ -17,23 +17,23 @@ A dashboard that flags students needing intervention from their assessment data.
 
 - Next.js
 - TypeScript
-- Tailwind
+- Tailwind CSS
 - Vitest
 
 ## Key Features
 
-- Marks students who need internvention based on assesment data
-- Sort students who need intervention in certain classes
+- Marks students who need **intervention** based on **assessment** data
+- Sorts students who need intervention in specific classes
 - Search students by name
 
 ## What I Built
 
-- Created tests for the intervention features, loading, empty, and error states, and search bar
-- Added loading, empty, and error states
+- Created tests for intervention features, loading, empty, and error states, and the search bar
+- Added loading, empty, and error states throughout the app
 
 ## Technical Decisions
 
-Focused on accessbility by creating:
+Focused on accessibility by implementing:
 
 - Keyboard-operable controls
 - Form labels
@@ -41,19 +41,16 @@ Focused on accessbility by creating:
 
 ## Testing
 
-Used Vitest and React Testing Library to test filter behavior, sorting, and error states.
+Used Vitest and React Testing Library to test filtering behavior, sorting, and error states.
 
 ## Accessibility
-
-If applicable, mention any accessibility work you completed.
-
-Examples:
 
 - Keyboard-operable controls
 - Form labels
 - Visible focus states
-- Lighthouse accessibility 96%
-  <img width="667" height="982" alt="image" src="https://github.com/user-attachments/assets/94adeda5-1941-45fa-9e5b-1135419eb45f" />
+- Lighthouse accessibility score: **96%**
+
+<img width="667" height="982" alt="image" src="https://github.com/user-attachments/assets/94adeda5-1941-45fa-9e5b-1135419eb45f" />
 
 ## Getting Started
 
@@ -71,6 +68,6 @@ npm run dev
 
 ## Future Improvements
 
-- Student specefic view
+- Student-specefic view
 - Authentication
-- Places to add data
+- Ability to add data
