@@ -24,8 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run linting
+        run: npm run lint
+
       - name: Run automated tests
         run: npm test
+
+      - name: Build project
+        run: npm run build
 
   # 3. Continuous Deployment (CD) Job: Deploy (Only runs if testing passes)
   deploy:
@@ -34,5 +40,14 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Deploy to Hosting Provider
-        run: echo "Insert your cloud deployment command here (e.g., AWS, Vercel, Docker)"
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Verify Vercel Authentication
+        run: vercel whoami --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}

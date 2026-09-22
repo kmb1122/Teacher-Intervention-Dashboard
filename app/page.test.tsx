@@ -117,7 +117,7 @@ describe("Home page", () => {
     expect(screen.queryByText("Claud")).not.toBeInTheDocument();
   });
 
-  // INTERVENTION all
+  // INTERVENTION: all
   it("shows students with an intervention in any class", async () => {
     mockFetchSuccess();
 
@@ -134,7 +134,7 @@ describe("Home page", () => {
     expect(screen.queryByText("Alice")).not.toBeInTheDocument();
   });
 
-  // INTERVENTION Subject Specefic
+  // INTERVENTION: subject specefic
   it("shows only students needing intervention in a specific class", async () => {
     mockFetchSuccess();
     render(<Home />);
