@@ -1,4 +1,5 @@
 [![CI/CD Pipeline](https://github.com/kmb1122/Teacher-Intervention-Dashboard/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kmb1122/Teacher-Intervention-Dashboard/actions/workflows/ci-cd.yml)
+
 # Teacher Intervention Board
 
 A dashboard that flags students needing intervention from their assessment data.
@@ -21,8 +22,9 @@ A dashboard that flags students needing intervention from their assessment data.
 
 ## Key Features
 
-- Testing
-- Accessibility
+- Marks students who need internvention based on assesment data
+- Sort students who need intervention in certain classes
+- Search students by name
 
 ## What I Built
 
@@ -32,6 +34,7 @@ A dashboard that flags students needing intervention from their assessment data.
 ## Technical Decisions
 
 Focused on accessbility by creating:
+
 - Keyboard-operable controls
 - Form labels
 - Visible focus states
@@ -45,12 +48,12 @@ Used Vitest and React Testing Library to test filter behavior, sorting, and erro
 If applicable, mention any accessibility work you completed.
 
 Examples:
+
 - Keyboard-operable controls
 - Form labels
 - Visible focus states
 - Lighthouse accessibility 96%
-<img width="667" height="982" alt="image" src="https://github.com/user-attachments/assets/94adeda5-1941-45fa-9e5b-1135419eb45f" />
-
+  <img width="667" height="982" alt="image" src="https://github.com/user-attachments/assets/94adeda5-1941-45fa-9e5b-1135419eb45f" />
 
 ## Getting Started
 
@@ -60,8 +63,6 @@ cd teacher-intervention-dashboard
 npm install
 npm run dev
 ```
-
-Add any other setup steps the project requires.
 
 ## Known Limitations
 
@@ -73,4 +74,3 @@ Add any other setup steps the project requires.
 - Student specefic view
 - Authentication
 - Places to add data
-
