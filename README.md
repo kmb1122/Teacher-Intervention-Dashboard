@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![CI/CD Pipeline](https://github.com/kmb1122/Teacher-Intervention-Dashboard/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kmb1122/Teacher-Intervention-Dashboard/actions/workflows/ci-cd.yml)
+# Teacher Intervention Board
+
+A dashboard that flags students needing intervention from their assessment data.
+
+## Live Demo
+
+[View Live Demo](https://teacher-intervention-dashboard.vercel.app/)
+
+## Screenshots
+
+<img width="1598" height="1005" alt="image" src="https://github.com/user-attachments/assets/ec439fbf-1a68-4fff-bf6a-5eee5e2d5283" />
+<img width="452" height="908" alt="image" src="https://github.com/user-attachments/assets/bb2bddf7-985e-40ce-9ee2-402649710296" />
+
+## Tech Stack
+
+- Next.js
+- TypeScript
+- Tailwind
+- Vitest
+
+## Key Features
+
+- Testing
+- Accessibility
+
+## What I Built
+
+- Created tests for the intervention features, loading, empty, and error states, and search bar
+- Added loading, empty, and error states
+
+## Technical Decisions
+
+Focused on accessbility by creating:
+- Keyboard-operable controls
+- Form labels
+- Visible focus states
+
+## Testing
+
+Used Vitest and React Testing Library to test filter behavior, sorting, and error states.
+
+## Accessibility
+
+If applicable, mention any accessibility work you completed.
+
+Examples:
+- Keyboard-operable controls
+- Form labels
+- Visible focus states
+- Lighthouse accessibility 96%
+<img width="667" height="982" alt="image" src="https://github.com/user-attachments/assets/94adeda5-1941-45fa-9e5b-1135419eb45f" />
+
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/kmb1122/Teacher-Intervention-Dashboard
+cd teacher-intervention-dashboard
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add any other setup steps the project requires.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Known Limitations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Uses sample data
+- No authentication
 
-## Learn More
+## Future Improvements
 
-To learn more about Next.js, take a look at the following resources:
+- Student specefic view
+- Authentication
+- Places to add data
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
