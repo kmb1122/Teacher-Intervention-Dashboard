@@ -25,8 +25,8 @@ export default async function StudentPage({
   if (!Number.isInteger(studentId) || !student) notFound();
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="border-b border-slate-200 bg-white">
+    <main className="flex h-screen flex-col overflow-hidden bg-slate-50 text-slate-900">
+      <section className="shrink-0 border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
           <Link
             href="/"
@@ -58,48 +58,61 @@ export default async function StudentPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
         <h3 className="text-xl font-bold text-slate-950">Grades</h3>
-        <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-900 text-xs uppercase text-slate-300">
-              <tr>
-                <th scope="col" className="px-5 py-3 font-semibold">
-                  Class
-                </th>
-                <th scope="col" className="px-5 py-3 text-right font-semibold">
-                  Grade
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {subjects.map((subject) => {
-                const grade = student.grades[subject.key];
-                const needsIntervention = grade < 65;
+        <div className="mt-4 flex-1 overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <div className="h-full overflow-y-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="sticky top-0 z-10 bg-slate-900 text-xs uppercase text-slate-300">
+                <tr>
+                  <th scope="col" className="px-5 py-3 font-semibold">
+                    Class
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-5 py-3 text-right font-semibold"
+                  >
+                    Grade
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {subjects.map((subject) => {
+                  const grade = student.grades[subject.key];
+                  const needsIntervention = grade < 65;
 
-                return (
-                  <tr key={subject.key}>
-                    <th
-                      scope="row"
-                      className="px-5 py-4 font-medium text-slate-800"
-                    >
-                      {subject.label}
-                    </th>
-                    <td className="px-5 py-4 text-right">
-                      <span
-                        className={`inline-flex min-w-16 justify-center rounded-md px-3 py-1.5 font-semibold ${needsIntervention ? "bg-red-50 text-red-700 ring-1 ring-red-200" : "bg-slate-100 text-slate-700"}`}
+                  return (
+                    <tr key={subject.key}>
+                      <th
+                        scope="row"
+                        className="px-5 py-4 font-medium text-slate-800"
                       >
-                        {grade}%
-                        {needsIntervention && (
-                          <span className="sr-only">, needs intervention</span>
-                        )}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        {subject.label}
+                      </th>
+                      <td className="px-5 py-4 text-right">
+                        <span
+                          className={`relative inline-flex min-w-16 justify-center rounded-md px-3 py-1.5 font-semibold ${needsIntervention ? "bg-red-50 text-red-700 ring-1 ring-red-200" : "bg-slate-100 text-slate-700"}`}
+                        >
+                          {grade}%
+                          {needsIntervention && (
+                            <>
+                              <span
+                                aria-label="Needs intervention"
+                                className="absolute -right-1 -top-1 h-3 w-3 rotate-45 bg-red-500"
+                              />
+                              <span className="sr-only">
+                                , needs intervention
+                              </span>
+                            </>
+                          )}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>

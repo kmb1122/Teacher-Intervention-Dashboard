@@ -1,6 +1,7 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Home from "./page";
+import StudentPage from "./students/[id]/page";
 import { it, expect, beforeEach, describe, vi } from "vitest";
 
 describe("Home page", () => {
@@ -152,6 +153,14 @@ describe("Home page", () => {
     expect(await screen.findByText("Bob")).toBeInTheDocument();
     expect(screen.queryByText("Claud")).toBeNull();
     expect(screen.queryByText("Alice")).toBeNull();
+  });
+
+  it("shows the intervention marker on the student detail page", async () => {
+    const page = await StudentPage({ params: Promise.resolve({ id: "6" }) });
+    render(page);
+
+    const interventionBadges = screen.getAllByLabelText("Needs intervention");
+    expect(interventionBadges.length).toBeGreaterThan(0);
   });
 
   // SORTING
