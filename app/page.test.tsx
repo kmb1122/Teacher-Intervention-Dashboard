@@ -85,6 +85,10 @@ describe("Home page", () => {
     render(<Home />);
 
     expect(await screen.findByText("Bob")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Bob" })).toHaveAttribute(
+      "href",
+      "/students/2",
+    );
     expect(screen.queryByText("Alice")).not.toBeInTheDocument();
   });
 

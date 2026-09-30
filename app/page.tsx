@@ -2,6 +2,7 @@
 
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { Student, StudentGrades } from "@/types/students";
 import SortableHeader, {
@@ -283,7 +284,12 @@ export default function Home() {
                         #{student.id}
                       </td>
                       <td className="whitespace-nowrap px-5 py-4 font-semibold text-slate-900">
-                        {student.name}
+                        <Link
+                          href={`/students/${student.id}`}
+                          className="rounded-sm hover:text-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+                        >
+                          {student.name}
+                        </Link>
                       </td>
                       <td className="whitespace-nowrap px-5 py-4 text-slate-500">
                         {student.homeroom}
