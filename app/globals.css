@@ -20,3 +20,22 @@ a {
   height: 1.5rem;
   aspect-ratio: 1 / 1;
 }
+
+.grades-scrollbar {
+  scrollbar-color: #64748b transparent;
+  scrollbar-width: thin;
+}
+
+.grades-scrollbar::-webkit-scrollbar {
+  width: 0.375rem;
+  height: 0.375rem;
+}
+
+.grades-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.grades-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #64748b;
+}

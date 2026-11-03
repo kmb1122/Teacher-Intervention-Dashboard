@@ -25,32 +25,32 @@ export default async function StudentPage({
   if (!Number.isInteger(studentId) || !student) notFound();
 
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-slate-50 text-slate-900">
+    <main className="flex h-[calc(100dvh-57px)] flex-col overflow-hidden bg-slate-50 text-slate-900 sm:h-[calc(100dvh-61px)]">
       <section className="shrink-0 border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <Link
             href="/"
-            className="text-sm font-semibold text-teal-700 hover:text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700"
+            className="inline-flex items-center text-sm font-semibold text-teal-700 hover:text-teal-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700"
           >
             &larr; All students
           </Link>
           <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             {student.name}
           </h2>
-          <div className="mt-6 grid gap-6 border-t border-slate-200 pt-5 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 border-t border-slate-200 pt-5 sm:grid-cols-2 sm:gap-6">
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 Homeroom teacher
               </p>
-              <p className="mt-1 text-lg font-semibold text-slate-900">
+              <p className="mt-1 text-base font-semibold text-slate-900 sm:text-lg">
                 {student.homeroom}
               </p>
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 GPA
               </p>
-              <p className="mt-1 text-lg font-semibold text-teal-800">
+              <p className="mt-1 text-base font-semibold text-teal-800 sm:text-lg">
                 {student.GPA.toFixed(2)}
               </p>
             </div>
@@ -58,19 +58,19 @@ export default async function StudentPage({
         </div>
       </section>
 
-      <section className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <h3 className="text-xl font-bold text-slate-950">Grades</h3>
-        <div className="mt-4 flex-1 overflow-hidden rounded-xl border border-slate-200 bg-white">
-          <div className="h-full overflow-y-auto">
-            <table className="w-full text-left text-sm">
+        <div className="mt-4 flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="grades-scrollbar min-h-0 flex-1 overflow-auto">
+            <table className="w-full min-w-[280px] text-left text-sm">
               <thead className="sticky top-0 z-10 bg-slate-900 text-xs uppercase text-slate-300">
                 <tr>
-                  <th scope="col" className="px-5 py-3 font-semibold">
+                  <th scope="col" className="px-4 py-3 font-semibold sm:px-5">
                     Class
                   </th>
                   <th
                     scope="col"
-                    className="px-5 py-3 text-right font-semibold"
+                    className="px-4 py-3 text-right font-semibold sm:px-5"
                   >
                     Grade
                   </th>
@@ -85,11 +85,11 @@ export default async function StudentPage({
                     <tr key={subject.key}>
                       <th
                         scope="row"
-                        className="px-5 py-4 font-medium text-slate-800"
+                        className="px-4 py-4 font-medium text-slate-800 sm:px-5"
                       >
                         {subject.label}
                       </th>
-                      <td className="px-5 py-4 text-right">
+                      <td className="px-4 py-4 text-right sm:px-5">
                         <span
                           className={`relative inline-flex min-w-16 justify-center rounded-md px-3 py-1.5 font-semibold ${needsIntervention ? "bg-red-50 text-red-700 ring-1 ring-red-200" : "bg-slate-100 text-slate-700"}`}
                         >
