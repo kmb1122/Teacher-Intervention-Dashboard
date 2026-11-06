@@ -25,6 +25,7 @@ A dashboard that flags students needing intervention based on their assessment d
 - Marks students who need **intervention** based on **assessment** data
 - Sorts students who need intervention in specific classes
 - Search students by name
+- Shows class grade averages and flags averages of **65% or below**
 
 ## What I Built
 
