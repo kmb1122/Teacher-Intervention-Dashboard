@@ -18,6 +18,9 @@ export default function ClassesPage() {
   const [students, setStudents] = useState<Student[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [sortOrder, setSortOrder] = useState<
+    "ascending" | "descending" | null
+  >(null);
 
   useEffect(() => {
     async function loadStudents() {
@@ -49,6 +52,15 @@ export default function ClassesPage() {
       }),
     [students],
   );
+  const sortedClasses = useMemo(() => {
+    if (!sortOrder) return classes;
+
+    return [...classes].sort((a, b) =>
+      sortOrder === "ascending"
+        ? a.average - b.average
+        : b.average - a.average,
+    );
+  }, [classes, sortOrder]);
   const flaggedCount = classes.filter(
     ({ average }) => average <= 65,
   ).length;
@@ -80,7 +92,7 @@ export default function ClassesPage() {
               id="class-list-heading"
               className="text-lg font-bold text-slate-950"
             >
-              Class grade averages
+              Class Grade Averages
             </h2>
             <p className="mt-1 text-sm text-slate-500">
               A class average of 65% or below is flagged for attention.
@@ -92,10 +104,37 @@ export default function ClassesPage() {
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 bg-slate-900 px-5 py-4 text-xs font-semibold uppercase tracking-wider text-slate-300 sm:grid-cols-[minmax(0,1fr)_9rem_10rem]">
-            <span>Class</span>
-            <span className="text-right sm:text-left">Students</span>
-            <span className="hidden sm:block">Grade average</span>
+          <div
+            role="row"
+            className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 bg-slate-900 px-5 py-4 text-xs font-semibold tracking-wider text-slate-100 sm:grid-cols-[minmax(0,1fr)_9rem_10rem]"
+          >
+            <span role="columnheader">Class</span>
+            <span role="columnheader" className="text-right sm:text-left">
+              Students
+            </span>
+            <span
+              role="columnheader"
+              aria-sort={sortOrder ?? "none"}
+              className="col-span-2 sm:col-span-1"
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  setSortOrder((current) =>
+                    current === "ascending" ? "descending" : "ascending",
+                  )
+                }
+                className="flex w-full cursor-pointer items-center justify-between gap-2 text-left transition hover:text-teal-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-300"
+              >
+                Grade Average
+                <span
+                  aria-hidden="true"
+                  className={`text-xs transition-transform ${sortOrder === "descending" ? "rotate-180" : ""}`}
+                >
+                  ▼
+                </span>
+              </button>
+            </span>
           </div>
           {isLoading ? (
             <p role="status" className="px-5 py-12 text-center text-slate-500">
@@ -111,7 +150,7 @@ export default function ClassesPage() {
             </p>
           ) : (
             <ul className="divide-y divide-slate-100">
-              {classes.map(({ key, label, average, studentCount }) => {
+              {sortedClasses.map(({ key, label, average, studentCount }) => {
                 const isFlagged = average <= 65;
                 return (
                   <li
