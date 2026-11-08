@@ -163,6 +163,27 @@ describe("Home page", () => {
     expect(interventionBadges.length).toBeGreaterThan(0);
   });
 
+  it("shows all class grades in the page flow", async () => {
+    const page = await StudentPage({ params: Promise.resolve({ id: "6" }) });
+    const { container } = render(page);
+
+    for (const className of [
+      "Math",
+      "Reading",
+      "Writing",
+      "Social Studies",
+      "Science",
+      "PE",
+      "FACS",
+      "UA",
+    ]) {
+      expect(screen.getByRole("row", { name: new RegExp(className) })).toBeInTheDocument();
+    }
+
+    expect(container.querySelector("main")).toHaveClass("min-h-screen");
+    expect(container.querySelector(".grades-scrollbar")).toBeNull();
+  });
+
   // SORTING
   it("sorts students by name ascending", async () => {
     mockFetchSuccess();
