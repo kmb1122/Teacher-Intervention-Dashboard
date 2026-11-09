@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import type { Student, StudentGrades } from "@/types/students";
 
 const subjects: { key: keyof StudentGrades; label: string }[] = [
@@ -157,9 +158,12 @@ export default function ClassesPage() {
                     key={key}
                     className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 transition hover:bg-slate-50 sm:grid-cols-[minmax(0,1fr)_9rem_10rem]"
                   >
-                    <span className="font-semibold text-slate-900">
+                    <Link
+                      href={`/classes/${key.replace(/ /g, "-")}`}
+                      className="w-fit rounded-sm font-semibold text-slate-900 hover:text-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+                    >
                       {label}
-                    </span>
+                    </Link>
                     <span className="text-right text-sm text-slate-500 sm:text-left">
                       {studentCount}
                     </span>

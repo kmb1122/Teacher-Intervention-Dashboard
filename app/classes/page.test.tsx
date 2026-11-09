@@ -51,6 +51,10 @@ describe("Classes page", () => {
     render(<ClassesPage />);
 
     expect(await screen.findByText("Math")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Math" })).toHaveAttribute(
+      "href",
+      "/classes/math",
+    );
     expect(screen.getByText("65.0%")).toBeInTheDocument();
     expect(screen.getByText("65.5%")).toBeInTheDocument();
     expect(screen.getAllByText("Flagged")).toHaveLength(1);
